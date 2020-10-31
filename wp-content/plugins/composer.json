@@ -1,0 +1,10 @@
+{
+    "name": "berna/plugins",
+    "authors": [
+        {
+            "name": "Jean-PierrePapin",
+            "email": "skouo82@gmail.com"
+        }
+    ],
+    "require": {}
+}
