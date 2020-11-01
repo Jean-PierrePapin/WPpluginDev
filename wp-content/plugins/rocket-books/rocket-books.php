@@ -101,3 +101,11 @@ function run_rocket_books() {
 
 }
 run_rocket_books();
+
+/**
+ * Rules
+ */
+
+ // code should bas as minimum as possible
+ // custom post type should be visible in Wordpress admin section
+
