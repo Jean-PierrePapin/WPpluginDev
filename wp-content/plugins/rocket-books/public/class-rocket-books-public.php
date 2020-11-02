@@ -99,5 +99,124 @@ class Rocket_Books_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rocket-books-public.js', array( 'jquery' ), $this->version, false );
 
 	}
+	
+	/**
+	 * Register custom post type
+	 */
+	public function register_book_post_type() {
+		
+		register_post_type( 'book', [
+			'description'		=> __( 'Books', 'rocket-books' ),
+			'labels'			=> [
+				'name'                  => _x( 'Books', 'Post type general name', 'rocket-books' ),
+				'singular_name'         => _x( 'Book', 'Post type singular name', 'rocket-books' ),
+				'menu_name'             => _x( 'Books', 'Admin Menu text', 'rocket-books' ),
+				'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'rocket-books' ),
+				'add_new'               => __( 'Add New', 'rocket-books' ),
+				'add_new_item'          => __( 'Add New Book', 'rocket-books' ),
+				'new_item'              => __( 'New Book', 'rocket-books' ),
+				'edit_item'             => __( 'Edit Book', 'rocket-books' ),
+				'view_item'             => __( 'View Book', 'rocket-books' ),
+				'search_items'          => __( 'Search Books', 'rocket-books' ),
+				'not_found'             => __( 'No books found.', 'rocket-books' ),
+				'not_found_in_trash'    => __( 'No books found in Trash.', 'rocket-books' ),
+				'parent_item_colon'     => __( 'Parent Books:', 'rocket-books' ),
+				'all_items'             => __( 'All Books', 'rocket-books' )
+			],
+			'public'             	=> true,
+			'hierarchical'       	=> false,
+			'exclude_from_search'	=> false,
+			'publicly_queryable' 	=> true,
+			'show_ui'            	=> true,
+			'show_in_menu'      	=> true,
+			'show_in_nav_menu'		=> true,
+			'show_in_admin_bar'		=> true,
+			'menu_position'     	=> 20,
+			'menu_icon' 			=> 'dashicons-book',
+			'capability_type'    	=> 'post',
+			'map_meta_cap'			=> null,
+			'supports'           	=> array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+			'register_meta_box_cb'	=> null,
+			'taxonomies'			=> [],	
+			'has_archive'        	=> true,		
+			'rewrite'            	=> array( 
+				'slug' 			=> 'book',
+				'with_front'	=> true,
+				'feeds'			=> true,
+				'pages'			=> false
+			),
+			'query_var'          	=> true,
+			'can_export'			=> true,
+			'show_in_rest'			=> true,
+		] );
+	}
+
+	/**
+	 * Register taxonomy genre
+	 */
+	public function register_taxonomy_genre() {
+		// type the code with the 7min44s
+		$labels = array(
+			'name'              => _x( 'Genres', 'taxonomy general name', 'textdomain' ),
+			'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'textdomain' ),
+			'search_items'      => __( 'Search Genres', 'textdomain' ),
+			'all_items'         => __( 'All Genres', 'textdomain' ),
+			'parent_item'       => __( 'Parent Genre', 'textdomain' ),
+			'parent_item_colon' => __( 'Parent Genre:', 'textdomain' ),
+			'edit_item'         => __( 'Edit Genre', 'textdomain' ),
+			'update_item'       => __( 'Update Genre', 'textdomain' ),
+			'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
+			'new_item_name'     => __( 'New Genre Name', 'textdomain' ),
+			'menu_name'         => __( 'Genre', 'textdomain' ),
+		);
+	 
+		$args = array(
+			'hierarchical'      => true,
+			'labels'            => $labels,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'query_var'         => true,
+			'rewrite'           => array( 'slug' => 'genre' ),
+		);
+	 
+		register_taxonomy( 'genre', array( 'book' ), $args );
+	 
+		unset( $args );
+		unset( $labels );
+	 
+		// Add new taxonomy, NOT hierarchical (like tags)
+		$labels = array(
+			'name'                       => _x( 'Writers', 'taxonomy general name', 'textdomain' ),
+			'singular_name'              => _x( 'Writer', 'taxonomy singular name', 'textdomain' ),
+			'search_items'               => __( 'Search Writers', 'textdomain' ),
+			'popular_items'              => __( 'Popular Writers', 'textdomain' ),
+			'all_items'                  => __( 'All Writers', 'textdomain' ),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __( 'Edit Writer', 'textdomain' ),
+			'update_item'                => __( 'Update Writer', 'textdomain' ),
+			'add_new_item'               => __( 'Add New Writer', 'textdomain' ),
+			'new_item_name'              => __( 'New Writer Name', 'textdomain' ),
+			'separate_items_with_commas' => __( 'Separate writers with commas', 'textdomain' ),
+			'add_or_remove_items'        => __( 'Add or remove writers', 'textdomain' ),
+			'choose_from_most_used'      => __( 'Choose from the most used writers', 'textdomain' ),
+			'not_found'                  => __( 'No writers found.', 'textdomain' ),
+			'menu_name'                  => __( 'Writers', 'textdomain' ),
+		);
+	 
+		$args = array(
+			'hierarchical'          => false,
+			'labels'                => $labels,
+			'show_ui'               => true,
+			'show_admin_column'     => true,
+			'update_count_callback' => '_update_post_term_count',
+			'query_var'             => true,
+			'rewrite'               => array( 'slug' => 'writer' ),
+		);
+	 
+		register_taxonomy( 'writer', 'book', $args );
+
+
+	}
 
 }

@@ -102,14 +102,3 @@ function run_rocket_books() {
 }
 run_rocket_books();
 
-/**
- * Rules
- */
-
- // code should bas as minimum as possible
- // custom post type should be visible in Wordpress admin section
-
-add_action( 'init', function() {
-	register_post_type( 'chair' );
-	var_dump(get_post_types()); die();
-} );
