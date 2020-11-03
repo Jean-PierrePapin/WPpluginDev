@@ -11,16 +11,14 @@
  */
 
 /**
- * The public-facing functionality of the plugin.
+ * Functionality for our Custom Post Types
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
  *
  * @package    Rocket_Books
  * @subpackage Rocket_Books/public
  * @author     James Lecodeur <Ma-h3sW3YEWRip=i@5E#>
  */
-class Rocket_Books_Public {
+class Rocket_Books_Post_Types {
 
 	/**
 	 * The ID of this plugin.
@@ -55,56 +53,20 @@ class Rocket_Books_Public {
 	}
 
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
+	 * Hooked into 'init' action hook
+	 */	
+	public function init() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Rocket_Books_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Rocket_Books_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rocket-books-public.css', array(), $this->version, 'all' );
-
+		$this->register_cpt_book();
+		$this->register_taxonomy_genre();
 	}
 
+
 	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
+	 * Registering Custom Post Type: Book
 	 */
-	public function enqueue_scripts() {
+	public function register_cpt_book() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Rocket_Books_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Rocket_Books_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rocket-books-public.js', array( 'jquery' ), $this->version, false );
-
-	}
-	
-	/**
-	 * Register custom post type
-	 */
-	public function register_book_post_type() {
-		
 		register_post_type( 'book', [
 			'description'		=> __( 'Books', 'rocket-books' ),
 			'labels'			=> [
@@ -152,7 +114,7 @@ class Rocket_Books_Public {
 	}
 
 	/**
-	 * Register taxonomy genre
+	 * Register custom taxonomy
 	 */
 	public function register_taxonomy_genre() {
 

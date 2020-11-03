@@ -85,6 +85,7 @@ class Rocket_Books {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		$this->define_post_type_hooks();
 	}
 
 	/**
@@ -127,6 +128,12 @@ class Rocket_Books {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-rocket-books-public.php';
+
+		/**
+		 * The class responsible for defining all actions for registering custom post types
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-post-types.php';
+
 
 		$this->loader = new Rocket_Books_Loader();
 
@@ -179,9 +186,9 @@ class Rocket_Books {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'init', $plugin_public, 'register_book_post_type' );
+		/* $this->loader->add_action( 'init', $plugin_public, 'register_book_post_type' );
 
-		$this->loader->add_action( 'init', $plugin_public, 'register_taxonomy_genre' );
+		$this->loader->add_action( 'init', $plugin_public, 'register_taxonomy_genre' ); */
 	}
 
 	/**
@@ -222,6 +229,17 @@ class Rocket_Books {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * Defining all actions and filter hooks for registering custom post types
+	 */
+	public function define_post_type_hooks() {
+
+		$plugin_post_types = new Rocket_Books_Post_Types( ROCKET_BOOKS_NAME, ROCKET_BOOKS_VERSION );
+
+		$this->loader->add_action( 'init', $plugin_post_types, 'init' );
+
 	}
 
 }
