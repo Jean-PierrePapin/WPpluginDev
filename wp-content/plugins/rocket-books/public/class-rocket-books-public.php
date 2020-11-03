@@ -137,7 +137,7 @@ class Rocket_Books_Public {
 			'map_meta_cap'			=> null,
 			'supports'           	=> array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
 			'register_meta_box_cb'	=> null,
-			'taxonomies'			=> [],	
+			'taxonomies'			=> [ 'genre' ],	
 			'has_archive'        	=> true,		
 			'rewrite'            	=> array( 
 				'slug' 			=> 'book',
@@ -156,67 +156,42 @@ class Rocket_Books_Public {
 	 */
 	public function register_taxonomy_genre() {
 		// type the code with the 7min44s
-		$labels = array(
-			'name'              => _x( 'Genres', 'taxonomy general name', 'textdomain' ),
-			'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'textdomain' ),
-			'search_items'      => __( 'Search Genres', 'textdomain' ),
-			'all_items'         => __( 'All Genres', 'textdomain' ),
-			'parent_item'       => __( 'Parent Genre', 'textdomain' ),
-			'parent_item_colon' => __( 'Parent Genre:', 'textdomain' ),
-			'edit_item'         => __( 'Edit Genre', 'textdomain' ),
-			'update_item'       => __( 'Update Genre', 'textdomain' ),
-			'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
-			'new_item_name'     => __( 'New Genre Name', 'textdomain' ),
-			'menu_name'         => __( 'Genre', 'textdomain' ),
-		);
-	 
-		$args = array(
-			'hierarchical'      => true,
-			'labels'            => $labels,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'query_var'         => true,
-			'rewrite'           => array( 'slug' => 'genre' ),
-		);
-	 
-		register_taxonomy( 'genre', array( 'book' ), $args );
-	 
-		unset( $args );
-		unset( $labels );
-	 
-		// Add new taxonomy, NOT hierarchical (like tags)
-		$labels = array(
-			'name'                       => _x( 'Writers', 'taxonomy general name', 'textdomain' ),
-			'singular_name'              => _x( 'Writer', 'taxonomy singular name', 'textdomain' ),
-			'search_items'               => __( 'Search Writers', 'textdomain' ),
-			'popular_items'              => __( 'Popular Writers', 'textdomain' ),
-			'all_items'                  => __( 'All Writers', 'textdomain' ),
-			'parent_item'                => null,
-			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Writer', 'textdomain' ),
-			'update_item'                => __( 'Update Writer', 'textdomain' ),
-			'add_new_item'               => __( 'Add New Writer', 'textdomain' ),
-			'new_item_name'              => __( 'New Writer Name', 'textdomain' ),
-			'separate_items_with_commas' => __( 'Separate writers with commas', 'textdomain' ),
-			'add_or_remove_items'        => __( 'Add or remove writers', 'textdomain' ),
-			'choose_from_most_used'      => __( 'Choose from the most used writers', 'textdomain' ),
-			'not_found'                  => __( 'No writers found.', 'textdomain' ),
-			'menu_name'                  => __( 'Writers', 'textdomain' ),
-		);
-	 
-		$args = array(
-			'hierarchical'          => false,
-			'labels'                => $labels,
+
+		register_taxonomy( 'genre', ['book'], [
+			'description'		=> 'Genre',
+			'labels'			=> [
+				'name'                       => _x( 'Genres', 'taxonomy general name', 'rocket-books' ),
+				'singular_name'              => _x( 'Genre', 'taxonomy singular name', 'rocket-books' ),
+				'search_items'               => __( 'Search Genres', 'rocket-books' ),
+				'popular_items'              => __( 'Popular Genres', 'rocket-books' ),
+				'all_items'                  => __( 'All Genres', 'rocket-books' ),
+				'parent_item'                => null,
+				'parent_item_colon'          => null,
+				'edit_item'                  => __( 'Edit Genre', 'rocket-books' ),
+				'view_item'					 => __( 'View Genre', 'rocket-books' ),
+				'update_item'                => __( 'Update Genre', 'rocket-books' ),
+				'add_new_item'               => __( 'Add New Genre', 'rocket-books' ),
+				'new_item_name'              => __( 'New Genre Name', 'rocket-books' ),
+				'separate_items_with_commas' => __( 'Separate Genres with commas', 'rocket-books' ),
+				'add_or_remove_items'        => __( 'Add or remove Genres', 'rocket-books' ),
+				'choose_from_most_used'      => __( 'Choose from the most used Genres', 'rocket-books' ),
+				'not_found'                  => __( 'No Genres found.', 'rocket-books' ),
+			],
+			'public'				=> true,
 			'show_ui'               => true,
+			'show_in_nav_menus'		=> true,
+			'show_tagcloud'			=> true,
+			'meta_box_cb'			=> null,
 			'show_admin_column'     => true,
-			'update_count_callback' => '_update_post_term_count',
+			'hierarchical'          => false,
 			'query_var'             => true,
-			'rewrite'               => array( 'slug' => 'writer' ),
-		);
-	 
-		register_taxonomy( 'writer', 'book', $args );
-
-
+			'rewrite'               => array( 
+				'slug' 			=> 'genre',
+				'with_front'	=> true,
+				'hierarchical'	=> true,
+			),
+			'capabilities'		=> [],
+		] );
 	}
 
 }
