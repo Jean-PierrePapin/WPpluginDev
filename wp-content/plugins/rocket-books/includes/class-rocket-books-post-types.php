@@ -155,4 +155,25 @@ class Rocket_Books_Post_Types {
 		] );
 	}
 
+	/**
+	 * Filter content for CPT: Book
+	 * @param	 	mixed		$the_content		the content of the post/post type.
+	 */
+	public function content_single_book($the_content) {
+
+		// Filter contents for just Books
+		if ( in_the_loop() && is_singular( 'book' ) ) {
+
+			// return "<pre>" . $the_content . "</pre>";
+
+			ob_start();
+			include ROCKET_BOOKS_BASE_DIR . 'templates/book-content.php';
+			return ob_get_clean();
+
+		}
+
+		return $the_content;
+
+	}
+
 }
