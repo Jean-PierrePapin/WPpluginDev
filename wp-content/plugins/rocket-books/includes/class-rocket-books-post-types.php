@@ -119,8 +119,8 @@ class Rocket_Books_Post_Types {
 	public function register_taxonomy_genre() {
 
 		register_taxonomy( 'genre', ['book'], [
-			'description'		=> 'Genre',
-			'labels'			=> [
+			'description'			=> 'Genre',
+			'labels'				=> [
 				'name'                       => _x( 'Genres', 'taxonomy general name', 'rocket-books' ),
 				'singular_name'              => _x( 'Genre', 'taxonomy singular name', 'rocket-books' ),
 				'search_items'               => __( 'Search Genres', 'rocket-books' ),
@@ -151,7 +151,8 @@ class Rocket_Books_Post_Types {
 				'with_front'	=> true,
 				'hierarchical'	=> true,
 			),
-			'capabilities'		=> [],
+			'capabilities'			=> [],
+			'show_in_rest'			=> true,
 		] );
 	}
 
@@ -196,4 +197,23 @@ class Rocket_Books_Post_Types {
 		return $template;
 	}
 
+	/**
+	 * Archive Template for CPT: book
+	 */
+	public function archive_template_book( $template ) {
+
+		if ( is_post_type_archive( 'book' ) ) {
+
+
+			// template for CPT book
+			require_once ROCKET_BOOKS_BASE_DIR . 'public/class-rocket-books-template-loader.php';
+
+			$template_loader = new Rocket_Books_Template_Loader();
+
+			return $template_loader->get_template_part( 'archive', 'book', false );
+		}
+
+
+		return $template;
+	}
 }
