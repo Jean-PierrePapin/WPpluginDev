@@ -242,6 +242,8 @@ class Rocket_Books {
 
 		$this->loader->add_filter( 'the_content', $plugin_post_types, 'content_single_book' );
 
+		$this->loader->add_filter( 'single_template', $plugin_post_types, 'single_template_book' );
+
 	}
 
 }
