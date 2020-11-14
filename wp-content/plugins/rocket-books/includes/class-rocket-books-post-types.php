@@ -265,8 +265,22 @@ class Rocket_Books_Post_Types {
 			class="widefat"
 			value="<?php echo get_post_meta( get_the_ID(), 'rbr_book_pages', true ); ?>"
 			>
+
+		<label for="rbr-is-featured">
+			<?php _e( 'Is featured Book?', 'rocket-books' ); ?>
+		</label>
+		<input
+			type="checkbox"
+			name="rbr-is-featured"
+			value="yes"
+			<?php checked(
+				get_post_meta( get_the_ID(), 'rbr_is_featured', true ),
+				"yes"
+			); ?>
+		/>
+
 		<?php
-		echo esc_html( get_post_meta( get_the_ID(), 'rbr_book_pages', true ) );
+		//echo esc_html( get_post_meta( get_the_ID(), 'rbr_book_pages', true ) );
 		// <script>alert('hello');</script>
 		/* echo "<pre>";
 		var_export(get_post_meta($post->ID));
@@ -325,9 +339,17 @@ class Rocket_Books_Post_Types {
 		update_post_meta( 
 			$post_id, 
 			'rbr_book_pages', 
-			sanitize_text_field( $_POST['rbr-book-pages'] ) // should be sanitized
+			absint( $_POST['rbr-book-pages'] ) // should be sanitized
 		 );
 
+		// Sanitization: We know the type
+		// Validation: We know what we are expecting to receive
+		
+		update_post_meta( 
+			$post_id, 
+			'rbr_is_featured', 
+			( 'yes' === $_POST['rbr-is-featured'] ) ? 'yes' : 'no' // should be sanitized // yes /no
+		);
 	}
 
 
