@@ -266,9 +266,11 @@ class Rocket_Books_Post_Types {
 			value="<?php echo get_post_meta( get_the_ID(), 'rbr_book_pages', true ); ?>"
 			>
 		<?php
-		echo "<pre>";
+		echo esc_html( get_post_meta( get_the_ID(), 'rbr_book_pages', true ) );
+		// <script>alert('hello');</script>
+		/* echo "<pre>";
 		var_export(get_post_meta($post->ID));
-		echo "</pre>";
+		echo "</pre>"; */
 	}
 
 	/**
@@ -303,8 +305,10 @@ class Rocket_Books_Post_Types {
 			! wp_verify_nonce( $_POST['rbr_meta_box_nonce'], 'rbr_meta_box_nonce_action' 
 			)
 		) {
-			print __( 'Sorry your nonce did not verify', 'rocket-books' );
-			exit;
+
+			return null;
+			/* print __( 'Sorry your nonce did not verify', 'rocket-books' );
+			exit; */
 		}
 
 		/**
@@ -318,7 +322,10 @@ class Rocket_Books_Post_Types {
 
 		//update_post_meta( get_the_ID(), 'rbr_book_pages', $_POST['rbr-book-pages'] );
 
-		update_post_meta( $post_id, 'rbr_book_pages', $_POST['rbr-book-pages'] // should be sanitized
+		update_post_meta( 
+			$post_id, 
+			'rbr_book_pages', 
+			sanitize_text_field( $_POST['rbr-book-pages'] ) // should be sanitized
 		 );
 
 	}
