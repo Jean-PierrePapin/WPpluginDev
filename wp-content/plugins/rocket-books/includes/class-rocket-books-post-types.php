@@ -382,7 +382,7 @@ class Rocket_Books_Post_Types {
 					'pdf'
 				]	
 			)
-		 ) ? sanitize_key( $_POST['rbr-book-format'] ) : 'pdf';
+		 ) ? sanitize_key( $_POST['rbr-book-format'] ) : 'no-format';
 
 		update_post_meta( 
 			$post_id, 
