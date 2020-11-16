@@ -264,7 +264,7 @@ class Rocket_Books_Post_Types {
 				type="text"
 				name=rbr-book-pages
 				class="widefat"
-				value="<?php echo get_post_meta( get_the_ID(), 'rbr_book_pages', true ); ?>"
+				value="<?php echo esc_html( get_post_meta( get_the_ID(), 'rbr_book_pages', true ) ); ?>"
 				>
 		</p>
 
@@ -283,20 +283,20 @@ class Rocket_Books_Post_Types {
 			/>
 		</p>
 		
-		<?php $book_format_from_db = get_post_meta( get_the_ID(), 'rbr_book_format', true ); ?>
+		<?php $book_format_from_db = esc_html( get_post_meta( get_the_ID(), 'rbr_book_format', true ) ); ?>
 		<p>
-			<label for="rbr-book-format">Book Format</label>
+			<label for="rbr-book-format"><?php _e( 'Book Format', 'rocket-books' ); ?></label>
 			<select name="rbr-book-format" id="rbr-book-format" class="widefat">
-				<option value="">Select option...</option>
+				<option value=""><?php _e( 'Select option...', 'rocket-books' ); ?></option>
 				<option value="hardcover"
 					<?php selected( $book_format_from_db, "hardcover" ); ?>
-				>Hardcover</option>
+				><?php _e( 'Hardcover', 'rocket-books' ); ?></option>
 				<option value="audio"
 					<?php selected( $book_format_from_db, "audio" ); ?>
-				>Audio</option>
+				><?php _e( 'Audio', 'rocket-books' ); ?></option>
 				<option value="pdf"
 					<?php selected( $book_format_from_db, "pdf" ); ?>
-				>PDF</option>
+				><?php _e( 'PDF', 'rocket-books' ); ?></option>
 			</select>
 		</p>
 
@@ -358,38 +358,43 @@ class Rocket_Books_Post_Types {
 
 		//update_post_meta( get_the_ID(), 'rbr_book_pages', $_POST['rbr-book-pages'] );
 
-		update_post_meta( 
-			$post_id, 
-			'rbr_book_pages', 
-			absint( $_POST['rbr-book-pages'] ) // should be sanitized
-		 );
+		if ( array_key_exists( 'rbr-bok-pages', $_POST ) ) {
+			update_post_meta( 
+				$post_id, 
+				'rbr_book_pages', 
+				absint( $_POST['rbr-book-pages'] ) // should be sanitized
+			);
+		}
+		
 
 		// Sanitization: We know the type
 		// Validation: We know what we are expecting to receive
-		
-		update_post_meta( 
-			$post_id, 
-			'rbr_is_featured', 
-			( 'yes' === $_POST['rbr-is-featured'] ) ? 'yes' : 'no' // should be sanitized // yes /no
-		);
+		if ( array_key_exists( 'rbr-is-featured', $_POST ) ) {
+			update_post_meta( 
+				$post_id, 
+				'rbr_is_featured', 
+				( 'yes' === $_POST['rbr-is-featured'] ) ? 'yes' : 'no' // should be sanitized // yes /no
+			);
+		}
 
-		$book_format = ( 
-			in_array(
-				$_POST['rbr-book-format'],
-				[
-					'hardcover',
-					'audio',
-					'pdf'
-				]	
-			)
-		 ) ? sanitize_key( $_POST['rbr-book-format'] ) : 'no-format';
+		if ( array_key_exists( 'rbr-book-format', $_POST ) ) {
+			$book_format = ( 
+				in_array(
+					$_POST['rbr-book-format'],
+					[
+						'hardcover',
+						'audio',
+						'pdf'
+					]	
+				)
+			) ? sanitize_key( $_POST['rbr-book-format'] ) : 'no-format';
 
-		update_post_meta( 
-			$post_id, 
-			'rbr_book_format', // hardcover, audio, pdf
-			$book_format
-		);
-
+			update_post_meta( 
+				$post_id, 
+				'rbr_book_format', // hardcover, audio, pdf
+				$book_format
+			);
+		}
 
 	}
 
