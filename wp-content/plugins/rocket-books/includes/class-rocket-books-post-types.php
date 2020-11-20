@@ -289,7 +289,7 @@ class Rocket_Books_Post_Types {
 			<label for="rbr-book-format"><?php _e( 'Book Format', 'rocket-books' ); ?></label>
 			<select name="rbr-book-format" id="rbr-book-format" class="widefat">
 				<option value=""><?php _e( 'Select option...', 'rocket-books' ); ?></option>
-				<option value="hardcover"
+				<optoni value="hardcover"
 					<?php selected( $book_format_from_db, "hardcover" ); ?>
 				><?php _e( 'Hardcover', 'rocket-books' ); ?></option>
 				<option value="audio"
@@ -412,11 +412,25 @@ class Rocket_Books_Post_Types {
 		] );
 
 		$metabox->add_field( [
-			'id'	=> 'rbr_book_pages',
-			'name'	=> __( 'Number of Pages', 'rocket-books' ),
-			'type'	=> 'text'
+			'id'			  => 'rbr_book_pages',
+			'name'			  => __( 'Number of Pages', 'rocket-books' ),
+			'type'			  => 'text',
+			'sanitization_cb' => 'absint'
 		] );
+		
 
+		$metabox->add_field( [
+			'id'		=> 'rbr_book_format',
+			'name'		=> __( 'Book Format', 'rocket-books' ),
+			'type'		=> 'select',
+			'options' 	=> [
+					'no-format'	=> __( 'Select Format', 'rocket-books' ),
+					'hardcover'	=> __( 'Hardcover', 'rocket-books' ),
+					'audio'		=> __( 'Audio', 'rocket-books' ),
+					'pdf'		=> __( 'PDF', 'rocket-books' ),
+			],
+			'default' 	=> 'no-format'
+		] );
 
 	}
 }
