@@ -152,8 +152,8 @@ class Rocket_Books_Admin {
 	 * Admin Page Display
 	 */
 	public function admin_page_display() {
-
-		include 'partials/rocket-books-admin-display.php';
+		// Old method for saving options
+		include 'partials/rocket-books-admin-display-form-method.php';
 
 	}
 
