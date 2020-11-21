@@ -122,7 +122,28 @@ class Rocket_Books_Admin {
 
 
 		// Sub Menu
-
+		/* add_plugins_page(
+			'Rocket Books Settings',
+			'Rocket Books',
+			'manage_options',
+			'rocket-books',
+			[
+				$this, 
+				'admin_page_display'
+			]
+		);
+ */
+		add_submenu_page(
+			'edit.php?post_type=book',
+			'Rocket Books Settings',
+			'Rocket Books',
+			'manage_options',
+			'rocket-books',
+			[
+				$this, 
+				'admin_page_display'
+			]
+		);
 
 
 	}
