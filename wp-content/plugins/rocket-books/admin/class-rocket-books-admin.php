@@ -159,4 +159,33 @@ class Rocket_Books_Admin {
 
 	}
 
+	/**
+	 * All the hooks for admin_init
+	 */
+	public function admin_init() {
+
+		// Add settings section
+		$this->add_settings_section();
+
+		// Add settings fields
+
+		// Save settings
+	}
+
+	/**
+	 * Add settings section for plugin options
+	 */
+	public function add_settings_section() {
+
+
+		add_settings_section(
+			'rbr-general-section',
+			'General Settings',
+			function() {
+				echo "There are general settings for Rocket Books";
+			},
+			'rbr-settings-page'
+		);
+	}
+
 }
