@@ -171,6 +171,7 @@ class Rocket_Books_Admin {
 		$this->add_settings_fields();
 
 		// Save settings
+		$this->save_fields();
 	}
 
 	/**
@@ -198,11 +199,29 @@ class Rocket_Books_Admin {
 			'rbr_test_field',
 			'Test Field',
 			function() {
-				echo '<input type="text" />';
+				echo '<input 
+						type="text" 
+						name="rbr_test_field"
+						value="' . esc_html( get_option( 'rbr_test_field' ) ) . '"
+						/>';
 			},
 			'rbr-settings-page',
 			'rbr-general-section'
 		);
 
 	}
+
+	/**
+	 * Save Settings Fields
+	 */
+	public function save_fields() {
+
+
+		register_setting(
+			'rbr-settings-page-options-group',
+			'rbr_test_field',
+			''
+		);
+	}
+
 }
