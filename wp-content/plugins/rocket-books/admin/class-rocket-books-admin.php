@@ -155,6 +155,8 @@ class Rocket_Books_Admin {
 		// Old method for saving options
 		//include 'partials/rocket-books-admin-display-form-method.php';
 
+
+		// Settings API
 		include 'partials/rocket-books-admin-display.php';
 
 	}
@@ -184,10 +186,23 @@ class Rocket_Books_Admin {
 			'rbr-general-section',
 			'General Settings',
 			function() {
-				echo "<p>There are general settings for Rocket Books</p>";
+				echo "<p>These are general settings for Rocket Books</p>";
 			},
 			'rbr-settings-page'
 		);
+
+
+		// Advance Section
+		add_settings_section(
+			'rbr-advance-section',
+			'Advance Settings',
+			function() {
+				echo "<p>These are advance settings for Rocket Books</p>";
+			},
+			'rbr-settings-page'
+		);
+
+
 	}
 
 	/**
@@ -209,6 +224,34 @@ class Rocket_Books_Admin {
 			'rbr-general-section'
 		);
 
+
+		add_settings_field(
+			'rbr_advance_field1',
+			'Advance Field 1',
+			function() {
+				echo '<input 
+						type="text" 
+						name="rbr_advance_field1"
+						value="' . esc_html( get_option( 'rbr_advance_field1' ) ) . '"
+						/>';
+			},
+			'rbr-settings-page',
+			'rbr-advance-section'
+		);
+
+		add_settings_field(
+			'rbr_advance_field2',
+			'Advance Field 2',
+			function() {
+				echo '<input 
+						type="text" 
+						name="rbr_advance_field2"
+						value="' . esc_html( get_option( 'rbr_advance_field2' ) ) . '"
+						/>';
+			},
+			'rbr-settings-page',
+			'rbr-advance-section'
+		);
 	}
 
 	/**
@@ -216,11 +259,28 @@ class Rocket_Books_Admin {
 	 */
 	public function save_fields() {
 
-
 		register_setting(
 			'rbr-settings-page-options-group',
 			'rbr_test_field',
-			''
+			[
+				'sanitize_callback'	=> 'sanitize_text_field'
+			]
+		);
+
+		register_setting(
+			'rbr-settings-page-options-group',
+			'rbr_advance_field1',
+			[
+				'sanitize_callback'	=> 'sanitize_text_field'
+			]
+		);
+
+		register_setting(
+			'rbr-settings-page-options-group',
+			'rbr_advance_field2',
+			[
+				'sanitize_callback'	=> 'absint'
+			]
 		);
 	}
 
