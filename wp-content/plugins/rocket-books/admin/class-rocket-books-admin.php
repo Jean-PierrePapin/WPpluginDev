@@ -226,6 +226,27 @@ class Rocket_Books_Admin {
 		);
 
 		add_settings_field(
+			'rbr_archive_column',
+			'Archive Columns',
+			[
+				$this, 
+				'markup_select_fields_cb'
+			],
+			'rbr-settings-page',
+			'rbr-general-section',
+			[
+				'name'		=> 'rbr_archive_column',
+				'value' 	=> get_option( 'rbr_archive_column' ),
+				'options'	=> [
+						'column-two'	=> __( 'Two Columns', 'rocket-books' ),
+						'column-three'	=> __( 'Three Columns', 'rocket-books' ),
+						'column-four'	=> __( 'Four Columns', 'rocket-books' ),
+						'column-five'	=> __( 'Five Columns', 'rocket-books' )
+					]
+			]
+		);
+
+		add_settings_field(
 			'rbr_advance_field1',
 			'Advance Field 1',
 			[
@@ -315,6 +336,12 @@ class Rocket_Books_Admin {
 				'sanitize_callback'	=> 'absint'
 			]
 		);
+
+		register_setting(
+			'rbr-settings-page-options-group',
+			'rbr_archive_column'
+		);
+
 	}
 
 	/**
@@ -339,5 +366,41 @@ class Rocket_Books_Admin {
 
 		<?php
 	}
+	
 
+	/**
+	 * Markup for Select Fields
+	 */
+	public function markup_select_fields_cb( $args ) {
+
+		if ( ! is_array( $args ) ) {
+			return null;
+		}
+
+		$name = ( isset( $args['name'] ) ) ? esc_html( $args['name'] ) : '';
+		$value = ( isset( $args['value'] ) ) ? esc_html( $args['value'] ) : '';
+		$options = ( 
+			isset( $args['options'] )
+			&&
+			is_array( $args['options'] )
+			) ? $args['options'] : [];
+
+		?>
+
+		<select 
+			name="<?php echo $name; ?>"
+			class="field-<?php echo $name; ?>"
+		>
+			<?php 
+			foreach ( $options as $option_key => $option_label ) {
+				echo "<option
+				value='{$option_key}'
+				" . selected( $option_key, $value ) . ">
+				{$option_label}</option>";
+			}
+			?>	
+		</select>
+
+		<?php
+	}
 }
