@@ -37,7 +37,16 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'ROCKET_BOOKS_VERSION', '1.0.0' );
 
+/**
+ * Plugin Name
+ * used to hold plugin name that can be used for constructors of plugin classes.
+ */
 define( 'ROCKET_BOOKS_NAME', 'rocket-books' );
+
+/**
+ * Plugin base file
+ */
+define( 'ROCKET_BOOKS_BASE_FILE', __FILE__ );
 
 // Plugin directory Path
 

@@ -403,4 +403,16 @@ class Rocket_Books_Admin {
 
 		<?php
 	}
+
+	/**
+	 * Add Plugin Action Links
+	 */
+	public function add_plugin_action_links( $links ) {
+		
+		$links[] = '<a href="'. esc_url( get_admin_url(null, 'edit.php?post_type=book&page=rocket-books') ) .'">Settings</a>';
+   			 
+		return $links;
+	}
+
+
 }
