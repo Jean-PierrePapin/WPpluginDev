@@ -242,7 +242,7 @@ class Rocket_Books_Admin {
 						'column-three'	=> __( 'Three Columns', 'rocket-books' ),
 						'column-four'	=> __( 'Four Columns', 'rocket-books' ),
 						'column-five'	=> __( 'Five Columns', 'rocket-books' )
-					]
+				]
 			]
 		);
 
@@ -422,7 +422,8 @@ class Rocket_Books_Admin {
 		require_once ROCKET_BOOKS_BASE_DIR . 'vendor/boo-settings-helper/class-boo-settings-helper.php';
 
 		$rocket_books_settings = [
-			'menu'	=> [
+			'prefix'	=> 'rbr_',
+			'menu'		=> [
 				'slug'			=> 'rocket-books',
 				'page_title'	=> __( 'Rocket Books Settings', 'rocket-books' ),
 				'menu_title'	=> __( 'Rocket Books', 'rocket-books' ),
@@ -442,6 +443,36 @@ class Rocket_Books_Admin {
 					'title'	=> __( 'Advance Section', 'rocket-books' ),
 					'desc'	=> __( 'These are advance settings', 'rocket-books' )
 				],
+			],
+			'fields'	=> [
+				// fieldss for General Section
+				'rbr_general_section'	=> [
+					[
+						'id'	=> 'test_field',
+						'label' => __( 'Test Field', 'rocket-books' ),
+					],
+					[
+						'id'	=> 'archive_column',
+						'label' => __( 'Archive column', 'rocket-books' ),
+						'type'	=> 'select',
+						'options'	=> [
+							'column-two'	=> __( 'Two Columns', 'rocket-books' ),
+							'column-three'	=> __( 'Three Columns', 'rocket-books' ),
+							'column-four'	=> __( 'Four Columns', 'rocket-books' ),
+							'column-five'	=> __( 'Five Columns', 'rocket-books' )
+						]
+					]
+				],
+				'rbr_advance_section'	=> [
+					[
+						'id'	=> 'advance_field1',
+						'label' => __( 'Advance Field 1', 'rocket-books' ),
+					],
+					[
+						'id'	=> 'advance_field2',
+						'label' => __( 'Advance Field 2', 'rocket-books' ),
+					]
+				]
 			]
 		];
 
