@@ -422,6 +422,7 @@ class Rocket_Books_Admin {
 		require_once ROCKET_BOOKS_BASE_DIR . 'vendor/boo-settings-helper/class-boo-settings-helper.php';
 
 		$rocket_books_settings = [
+			'tabs'		=> true,
 			'prefix'	=> 'rbr_',
 			'menu'		=> [
 				'slug'			=> 'rocket-books',
@@ -461,7 +462,22 @@ class Rocket_Books_Admin {
 							'column-four'	=> __( 'Four Columns', 'rocket-books' ),
 							'column-five'	=> __( 'Five Columns', 'rocket-books' )
 						]
+					],
+					[
+						'id'		=> 'media_test',
+						'label'		=> __( 'Media', 'rocket-books' ),
+						'desc'		=> __( 'Media', 'rocket-books' ),
+						'type'		=> 'media',
+						'default'	=> '',
+						'options'	=> [
+							'btn'		=> 'Get the image',
+							'width'		=> 900,
+							'height'	=> 300,
+							'max_width'	=> 900
+						]
 					]
+
+
 				],
 				'rbr_advance_section'	=> [
 					[
@@ -473,7 +489,11 @@ class Rocket_Books_Admin {
 						'label' => __( 'Advance Field 2', 'rocket-books' ),
 					]
 				]
-			]
+			],
+			'links'    => array(
+				'plugin_basename' => plugin_basename( ROCKET_BOOKS_BASE_FILE ),
+				'action_links'    => true,
+			),
 		];
 
 
