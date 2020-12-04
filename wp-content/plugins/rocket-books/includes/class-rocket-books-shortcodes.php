@@ -51,8 +51,43 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
          */
         public function book_list( $atts, $content ) {
 
-            return "I am shortcode" . "<br/>" . "<strong>{$content}</strong>" . "<br/>" . var_export( $atts, true );
+            $loop_args = [
+                'post_type'         => 'book',
+                'posts_per_type'    => 4,
+            ];
 
+            $loop = new WP_Query( $loop_args );
+
+            /**
+             * When using the template_loader method
+             */
+            //$template_loader = rbr_get_template_loader();
+
+            ob_start();
+            ?>
+
+            <div class="cpt-cards column-three">
+                <?php
+                // Start the loop.
+                while ( $loop->have_posts() ) :
+                    $loop->the_post();
+                    /**
+                     * When using the template_loader method
+                     */
+                    //$template_loader->get_template_part( 'archive/content', 'book' );
+                    include ROCKET_BOOKS_BASE_DIR . 'templates/archive/content-book.php';
+
+                // End the loop.
+                endwhile;
+                /* Restore original post */
+                wp_reset_postdata();
+
+                ?>
+            </div>
+            
+
+            <?php
+            ob_get_clean();
         }
 
 

@@ -334,8 +334,6 @@ class Rocket_Books {
 		 */
 		add_shortcode( 'book_list', [ $plugin_shortcodes, 'book_list' ] );
 	
-
-
 	}
 
 }
