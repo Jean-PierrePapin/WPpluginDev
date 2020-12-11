@@ -51,9 +51,18 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
          */
         public function book_list( $atts, $content ) {
 
+            $atts = shortcode_atts(
+                [
+                    'limit' => get_option( 'posts_per_page' )
+                ],
+                $atts,
+                'book_list'
+            );
+
+
             $loop_args = [
                 'post_type'         => 'book',
-                'posts_per_type'    => 4,
+                'posts_per_type'    => $atts['limit'],
             ];
 
             $loop = new WP_Query( $loop_args );
@@ -81,7 +90,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
                 endwhile;
                 /* Restore original post */
                 wp_reset_postdata();
-
+                
                 ?>
             </div>
             

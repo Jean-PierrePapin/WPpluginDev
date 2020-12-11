@@ -24,7 +24,7 @@ if ( ! class_exists( 'Rocket_Books_Global' ) ) {
         }
 
 
-        public function set_template_loader() {
+        public static function set_template_loader() {
 
             require_once ROCKET_BOOKS_BASE_DIR . 'public/class-rocket-books-template-loader.php';
     

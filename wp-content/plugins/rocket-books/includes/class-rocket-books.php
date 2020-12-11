@@ -156,6 +156,7 @@ class Rocket_Books {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-shortcodes.php';
 
+
 		$this->loader = new Rocket_Books_Loader();
 
 	}
@@ -332,7 +333,7 @@ class Rocket_Books {
 		/**
 		 * Adding Shortcode
 		 */
-		add_shortcode( 'book_list', [ $plugin_shortcodes, 'book_list' ] );
+		add_shortcode( 'book_list', array( $plugin_shortcodes, 'book_list' ) );
 	
 	}
 
