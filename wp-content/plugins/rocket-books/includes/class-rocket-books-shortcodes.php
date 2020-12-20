@@ -49,12 +49,13 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
          * 
          * Usage: [book_list limit=5 column=3] These are contents of shortcode [/book_list]
          */
-        public function book_list( $atts, $content ) {
+        public function book_list( $atts, $content = null ) {
 
             $atts = shortcode_atts(
                 [
                     'limit'     => get_option( 'posts_per_page' ),
                     'column'    => 3,
+                    'bgcolor'   => '#f6f6f6'
                 ],
                 $atts,
                 'book_list'
@@ -77,8 +78,13 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
             ob_start();
             ?>
+            <style> 
+                .cpt-cards .cpt-shortcodes .cpt-card {
+                    background-color: <?php echo rbr_sanitize_color( $atts['bgcolor'] ); ?>;
+                }
+            </style> 
 
-            <div class="cpt-cards <?php echo sanitize_html_class( $grid_column ); ?>">
+            <div class="cpt-cards cpt-shortcodes <?php echo sanitize_html_class( $grid_column ); ?>">
                 <?php
                 // Start the loop.
                 while ( $loop->have_posts() ) :
@@ -99,7 +105,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
             
 
             <?php
-            ob_get_clean();
+            return ob_get_clean();
         }
 
 

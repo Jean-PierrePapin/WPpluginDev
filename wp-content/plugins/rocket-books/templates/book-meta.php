@@ -28,8 +28,8 @@
             get_post_meta( 
                 get_the_ID(), 
                 $meta_key, 
-                true 
-                )
+                true   
+            )
         ); 
 
         // if its not empty, then we're going to build html

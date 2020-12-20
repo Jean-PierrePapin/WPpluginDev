@@ -212,7 +212,7 @@ class Rocket_Books {
 			$plugin_admin, 
 			'add_plugin_action_links' 
 		); 
-  */
+  		*/
 
 		/**
 		 * Adding plugin admin menu
@@ -333,8 +333,11 @@ class Rocket_Books {
 		/**
 		 * Adding Shortcode
 		 */
+		
 		add_shortcode( 'book_list', array( $plugin_shortcodes, 'book_list' ) );
 	
 	}
+
+
 
 }
