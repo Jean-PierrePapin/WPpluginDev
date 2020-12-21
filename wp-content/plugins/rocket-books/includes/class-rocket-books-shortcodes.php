@@ -42,7 +42,31 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
             $this->plugin_name = $plugin_name;
             $this->version     = $version;
 
+            $this->setup_hooks();
+
         }
+
+        /**
+         * Setup action/filter hooks
+         */
+        public function setup_hooks() {
+
+            add_action( 'wp_enqueue_scripts', [ $this, 'register_style' ] );
+
+        }
+        
+        /**
+         * Register Placeholder Style
+         */
+        public function register_style() {
+
+            wp_register_style(
+                $this->plugin_name .  '-shortcodes',
+                ROCKET_BOOKS_PLUGIN_URL . 'public/css/rocket-books-shortcodes.css'
+            );
+
+        }
+
         
         /**
          * Shortcode for Books List
@@ -71,6 +95,22 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
             $grid_column = rbr_get_column_class( $atts['column'] );
 
+            // Step 1: Register a placeholder stylesheet
+            // Step 2: Build up CSS
+            $css = ".cpt-cards.cpt-shortcodes .cpt-card{background-color:{$atts['bgcolor']};}";
+
+            // Step 3: Add CSS to placeholder style
+            wp_add_inline_style(
+                $this->plugin_name . '-shortcodes',
+                $css
+            );
+
+            // Step 4: Enqueue Style
+            wp_enqueue_style(
+                $this->plugin_name . '-shortcodes'
+            );
+
+
             /**
              * When using the template_loader method
              */
@@ -78,11 +118,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
             ob_start();
             ?>
-            <style> 
-                .cpt-cards .cpt-shortcodes .cpt-card {
-                    background-color: <?php echo rbr_sanitize_color( $atts['bgcolor'] ); ?>;
-                }
-            </style> 
+           
 
             <div class="cpt-cards cpt-shortcodes <?php echo sanitize_html_class( $grid_column ); ?>">
                 <?php
