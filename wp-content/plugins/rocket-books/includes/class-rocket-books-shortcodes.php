@@ -30,6 +30,11 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
         private $version;
 
         /**
+         * @var it will be all the css for all shortcodes
+         */
+        protected $shortcode_css;
+
+        /**
          * Initialize the class and set its properties
          * 
          * @since   1.0.0
@@ -52,6 +57,8 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
         public function setup_hooks() {
 
             add_action( 'wp_enqueue_scripts', [ $this, 'register_style' ] );
+
+            add_action( 'get_footer', array( $this, 'maybe_enqueue_scripts' ) );
 
         }
         
@@ -79,7 +86,8 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
                 [
                     'limit'     => get_option( 'posts_per_page' ),
                     'column'    => 3,
-                    'bgcolor'   => '#f6f6f6'
+                    'bgcolor'   => '',
+                    'color'     => ''
                 ],
                 $atts,
                 'book_list'
@@ -97,18 +105,9 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
             // Step 1: Register a placeholder stylesheet
             // Step 2: Build up CSS
-            $css = ".cpt-cards.cpt-shortcodes .cpt-card{background-color:{$atts['bgcolor']};}";
+            $this->add_css_books_list( $atts );
 
-            // Step 3: Add CSS to placeholder style
-            wp_add_inline_style(
-                $this->plugin_name . '-shortcodes',
-                $css
-            );
-
-            // Step 4: Enqueue Style
-            wp_enqueue_style(
-                $this->plugin_name . '-shortcodes'
-            );
+            
 
 
             /**
@@ -142,6 +141,48 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
             <?php
             return ob_get_clean();
+        }
+
+
+        /**
+         * Add CSS for books_list shortcode
+         */
+
+        public function add_css_books_list( $atts ) {
+
+            $css = '';
+            if ( ! empty( $atts['bgcolor'] ) ) {
+                $css .= ".cpt-cards.cpt-shortcodes .cpt-card{background-color:{$atts['bgcolor']};}";
+            }
+
+            if ( ! empty( $atts['color'] ) ) {
+                $css .= ".cpt-cards.cpt-shortcodes .cpt-card{color:{$atts['color']};}";
+            }
+
+            $this->shortcode_css = $this->shortcode_css . $css;
+
+        }
+
+        /**
+         * Enqueue Styles and scripts only if required
+         */
+        public function maybe_enqueue_scripts() {
+
+            if ( ! empty( $this->shortcode_css ) ) {
+
+                // Step 3: Add CSS to placeholder style
+                wp_add_inline_style(
+                    $this->plugin_name . '-shortcodes',
+                    $this->shortcode_css
+                );
+
+                // Step 4: Enqueue Style
+                wp_enqueue_style(
+                    $this->plugin_name . '-shortcodes'
+                );
+
+            }
+
         }
 
 
