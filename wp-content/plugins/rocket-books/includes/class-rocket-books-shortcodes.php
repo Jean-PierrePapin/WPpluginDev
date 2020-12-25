@@ -87,7 +87,8 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
                     'limit'     => get_option( 'posts_per_page' ),
                     'column'    => 3,
                     'bgcolor'   => '',
-                    'color'     => ''
+                    'color'     => '',
+                    'genre'     => ''
                 ],
                 $atts,
                 'book_list'
@@ -98,6 +99,16 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
                 'post_type'         => 'book',
                 'posts_per_type'    => $atts['limit'],
             ];
+
+            if ( ! empty( $atts['genre'] ) ) {
+                $loop_args['tax_query'] = [
+                    [
+                        'taxonomy'  => 'genre',
+                        'field'     => 'slug',
+                        'terms'     => $atts['genre']
+                    ]
+                ];
+            }
 
             $loop = new WP_Query( $loop_args );
 
