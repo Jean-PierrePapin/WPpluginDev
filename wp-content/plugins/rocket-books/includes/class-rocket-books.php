@@ -88,6 +88,8 @@ class Rocket_Books {
 		$this->define_post_type_hooks();
 
 		$this->define_shortcode_hooks();
+
+		$this->define_widgets_hooks();
 	}
 
 	/**
@@ -156,6 +158,10 @@ class Rocket_Books {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-shortcodes.php';
 
+		/**
+		 * The class responsible for defining all widgets related functionality
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-widgets.php';
 
 		$this->loader = new Rocket_Books_Loader();
 
@@ -338,6 +344,19 @@ class Rocket_Books {
 	
 	}
 
+	/**
+	 * Controlling Widgets Functionality for our plugin
+	 */
+	public function define_widgets_hooks() {
+
+		$plugin_widgets = new Rocket_Books_Widgets(
+			$this->get_plugin_name(),
+			$this->get_version()
+		);
+
+		$this->loader->add_action( 'widgets_init', $plugin_widgets, 'register_widgets' );
+
+	}
 
 
 }
