@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * Controlling all the widgets for plugin
  * 
  * @package    Rocket_Books
  * @subpackage Rocket_Books/includes
