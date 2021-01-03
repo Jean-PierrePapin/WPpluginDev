@@ -58,10 +58,14 @@ if ( ! class_exists( 'Rocket_Books_Widget_Books_List' ) ) {
 
 			echo $args['after_title'];
 
+			// loop for CPTs
+
+			
+
 			/* echo "<pre>";
 			var_export( $instance );
 
-			var_export( get_option( 'widget_rbr_books_list', true ) );
+			//var_export( get_option( 'widget_rbr_books_list', true ) );
 			echo "</pre>"; */
 
 			echo $args['after_widget'];
@@ -79,6 +83,7 @@ if ( ! class_exists( 'Rocket_Books_Widget_Books_List' ) ) {
 			// echo "This is form method";
 
 			$title = isset( $instance['title'] ) ? $instance['title'] : '';
+			$limit = isset( $instance['limit'] ) ? $instance['limit'] : 5;
 
 			?>
 			<p>
@@ -87,6 +92,15 @@ if ( ! class_exists( 'Rocket_Books_Widget_Books_List' ) ) {
 					   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
 					   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
 					   value="<?php echo esc_html( $title ); ?>"
+				>
+			</p>
+
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"><?php _e( 'Limit:', 'rocket-books' ); ?></label>
+				<input type="number" class="widefat"
+					   id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"
+					   name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"
+					   value="<?php echo esc_html( $limit ); ?>"
 				>
 			</p>
 			<?php
@@ -105,7 +119,8 @@ if ( ! class_exists( 'Rocket_Books_Widget_Books_List' ) ) {
 
 			// Sanitization of $new_instance
 
-			$sanitized_instance = $new_instance;
+			$sanitized_instance['title'] = sanitize_text_field( $new_instance['title'] );
+			$sanitized_instance['limit'] = absint( $new_instance['limit'] );
 
 			return $sanitized_instance;
 		}
