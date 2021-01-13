@@ -88,7 +88,8 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
                     'column'    => 3,
                     'bgcolor'   => '',
                     'color'     => '',
-                    'genre'     => ''
+                    'genre'     => '',
+                    'book_id'   => '',
                 ],
                 $atts,
                 'book_list'
@@ -97,8 +98,13 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
             $loop_args = [
                 'post_type'         => 'book',
-                'posts_per_type'    => $atts['limit'],
+                'posts_per_type'    => absint( $atts['limit'] ),
             ];
+
+            if ( ! empty( $atts['book_id'] ) ) {
+                $loop_args['p'] = absint( $atts['book_id'] );
+            }
+
 
             if ( ! empty( $atts['genre'] ) ) {
                 $loop_args['tax_query'] = [
