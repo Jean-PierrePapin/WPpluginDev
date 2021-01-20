@@ -20,24 +20,26 @@
  * @subpackage Rocket_Books/includes
  * @author     James Lecodeur <Ma-h3sW3YEWRip=i@5E#>
  */
-class Rocket_Books_Deactivator {
+if ( ! class_exists( 'Rocket_Books_Deactivator' ) ) {
+	class Rocket_Books_Deactivator {
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
+		/**
+		 * Short Description. (use period)
+		 *
+		 * Long Description.
+		 *
+		 * @since    1.0.0
+		 */
+		public static function deactivate() {
 
-		// Unregister CPT
+			// Unregister CPT
 
-		unregister_post_type( 'book' );
+			unregister_post_type( 'book' );
 
-		// Flush rewrite rules
-		flush_rewrite_rules();
+			// Flush rewrite rules
+			flush_rewrite_rules();
+
+		}
 
 	}
-
 }
