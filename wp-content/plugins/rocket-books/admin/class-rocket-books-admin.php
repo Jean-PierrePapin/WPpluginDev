@@ -481,7 +481,7 @@ if ( ! class_exists( 'Rocket_Books_Admin' ) ) {
 
 
 					],
-					'rbr_advance_section'	=> [
+					'rbr_advance_section'	=> apply_filters( 'rbr/admin/settings/advance/fields' , [
 						[
 							'id'	=> 'advance_field1',
 							'label' => __( 'Advance Field 1', 'rocket-books' ),
@@ -490,7 +490,7 @@ if ( ! class_exists( 'Rocket_Books_Admin' ) ) {
 							'id'	=> 'advance_field2',
 							'label' => __( 'Advance Field 2', 'rocket-books' ),
 						]
-					]
+					] )
 				],
 				'links'    => array(
 					'plugin_basename' => plugin_basename( ROCKET_BOOKS_BASE_FILE ),

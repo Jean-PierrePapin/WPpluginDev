@@ -72,51 +72,54 @@ if ( ! class_exists( 'Rocket_Books_Post_Types' ) ) {
 		 */
 		public function register_cpt_book() {
 
-			register_post_type( 'book', [
-				'description'		=> __( 'Books', 'rocket-books' ),
-				'labels'			=> [
-					'name'                  => _x( 'Books', 'Post type general name', 'rocket-books' ),
-					'singular_name'         => _x( 'Book', 'Post type singular name', 'rocket-books' ),
-					'menu_name'             => _x( 'Books', 'Admin Menu text', 'rocket-books' ),
-					'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'rocket-books' ),
-					'add_new'               => __( 'Add New', 'rocket-books' ),
-					'add_new_item'          => __( 'Add New Book', 'rocket-books' ),
-					'new_item'              => __( 'New Book', 'rocket-books' ),
-					'edit_item'             => __( 'Edit Book', 'rocket-books' ),
-					'view_item'             => __( 'View Book', 'rocket-books' ),
-					'search_items'          => __( 'Search Books', 'rocket-books' ),
-					'not_found'             => __( 'No books found.', 'rocket-books' ),
-					'not_found_in_trash'    => __( 'No books found in Trash.', 'rocket-books' ),
-					'parent_item_colon'     => __( 'Parent Books:', 'rocket-books' ),
-					'all_items'             => __( 'All Books', 'rocket-books' )
-				],
-				'public'             	=> true,
-				'hierarchical'       	=> false,
-				'exclude_from_search'	=> false,
-				'publicly_queryable' 	=> true,
-				'show_ui'            	=> true,
-				'show_in_menu'      	=> true,
-				'show_in_nav_menu'		=> true,
-				'show_in_admin_bar'		=> true,
-				'menu_position'     	=> 20,
-				'menu_icon' 			=> 'dashicons-book',
-				'capability_type'    	=> 'post',
-				'map_meta_cap'			=> null,
-				'supports'           	=> array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-				//'register_meta_box_cb'	=> [$this, 'register_metabox_book'],
-				'register_meta_box_cb'	=> null,
-				'taxonomies'			=> [ 'genre' ],	
-				'has_archive'        	=> true,		
-				'rewrite'            	=> array( 
-					'slug' 			=> 'book',
-					'with_front'	=> true,
-					'feeds'			=> true,
-					'pages'			=> false
-				),
-				'query_var'          	=> true,
-				'can_export'			=> true,
-				'show_in_rest'			=> true,
-			] );
+			register_post_type( 'book', apply_filters( 
+				'rbr/cpt/register/book/args', 
+				[
+					'description'		=> __( 'Books', 'rocket-books' ),
+					'labels'			=> [
+						'name'                  => _x( 'Books', 'Post type general name', 'rocket-books' ),
+						'singular_name'         => _x( 'Book', 'Post type singular name', 'rocket-books' ),
+						'menu_name'             => _x( 'Books', 'Admin Menu text', 'rocket-books' ),
+						'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'rocket-books' ),
+						'add_new'               => __( 'Add New', 'rocket-books' ),
+						'add_new_item'          => __( 'Add New Book', 'rocket-books' ),
+						'new_item'              => __( 'New Book', 'rocket-books' ),
+						'edit_item'             => __( 'Edit Book', 'rocket-books' ),
+						'view_item'             => __( 'View Book', 'rocket-books' ),
+						'search_items'          => __( 'Search Books', 'rocket-books' ),
+						'not_found'             => __( 'No books found.', 'rocket-books' ),
+						'not_found_in_trash'    => __( 'No books found in Trash.', 'rocket-books' ),
+						'parent_item_colon'     => __( 'Parent Books:', 'rocket-books' ),
+						'all_items'             => __( 'All Books', 'rocket-books' )
+					],
+					'public'             	=> true,
+					'hierarchical'       	=> false,
+					'exclude_from_search'	=> false,
+					'publicly_queryable' 	=> true,
+					'show_ui'            	=> true,
+					'show_in_menu'      	=> true,
+					'show_in_nav_menu'		=> true,
+					'show_in_admin_bar'		=> true,
+					'menu_position'     	=> 20,
+					'menu_icon' 			=> 'dashicons-book',
+					'capability_type'    	=> 'post',
+					'map_meta_cap'			=> null,
+					'supports'           	=> array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+					//'register_meta_box_cb'	=> [$this, 'register_metabox_book'],
+					'register_meta_box_cb'	=> null,
+					'taxonomies'			=> [ 'genre' ],	
+					'has_archive'        	=> true,		
+					'rewrite'            	=> array( 
+						'slug' 			=> 'book',
+						'with_front'	=> true,
+						'feeds'			=> true,
+						'pages'			=> false
+					),
+					'query_var'          	=> true,
+					'can_export'			=> true,
+					'show_in_rest'			=> true,
+				] )
+		 	);
 		}
 
 		/**
