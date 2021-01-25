@@ -71,3 +71,4 @@
         ); ?>
     </li> -->
 </ul>
+<?php do_action( 'rbr_single_book_meta_after' ); ?>

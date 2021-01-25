@@ -26,3 +26,8 @@ add_filter( 'rbr/cpt/register/book/args', function( $args_array ) {
 
     return $args_array;
 } );
+
+add_action( 'rbr_single_book_meta_after', function(){
+
+    echo do_shortcode( '[SSB]' );
+} );
