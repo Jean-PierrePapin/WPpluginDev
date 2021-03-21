@@ -6,7 +6,7 @@
 /*
 Plugin Name: Hello Boom Boom Boom
 Plugin URI: NA
-Description: This is not just a plugin, it symbolizes the song lyrics from the Black Eye Pease in 2009. 
+Description: This is not just a plugin, it symbolizes the song lyrics from the Black Eyed Peas in 2009. 
 When activated you will randomly see a lyric from <cite>Welcome</cite> in the upper right of your admin screen on every page.
 Author: Jean-Pierre Papin
 Version: 1.0.0
@@ -141,8 +141,7 @@ function hello_boom_get_lyric() {
     
     Let the beat rock (Let the beat rock)
     Let the beat rock (Let the beat...)
-    Let the beat rock (Let the beat rock, rock, rock...)
-    ";
+    Let the beat rock (Let the beat rock, rock, rock...)";
 
     // Here we split it into lines.
     $lyrics = explode( "\n", $lyrics );
@@ -161,12 +160,10 @@ function hello_boom() {
 
     printf(
         '<p id="boom"><span class="screen-reader-text">%s </span><span dir="ltr"%s>%s</span></p>',
-        __( 'Quote from Hello Boom Boom Pow song, by Black Eye Pease', 'Boom Boom Pow' ),
+        __( 'Quote from Hello Boom Boom Pow song, by Black Eyed Peas', 'Boom Boom Pow' ),
         $lang,
         $chosen
     );
-
-
 }
 
 // Now we set that function up to execute when the admin_notices action is called
