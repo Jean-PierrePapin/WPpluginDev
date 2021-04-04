@@ -90,7 +90,8 @@ if ( ! class_exists( 'SimpleSocialButtonsPR_Admin' ) ) :
 			$selected_post_type = array();
 			foreach ( $ssb_positions['position'] as $key => $value ) {
 				$options = get_option( 'ssb_' . $value );
-				if ( isset( $options['posts'] ) ) {
+
+				if ( isset( $options['posts'] ) && $options['posts'] !== '' ) {
 					foreach ( $options['posts']  as $allow_post_type ) {
 						$selected_post_type[ $allow_post_type ] = $allow_post_type;
 					}
@@ -102,7 +103,9 @@ if ( ! class_exists( 'SimpleSocialButtonsPR_Admin' ) ) :
 				return false;
 			}
 
+			//Upon Editing or adding the post.
 			$currentSsbHide = get_post_custom_values( $this->hideCustomMetaKey, $postId );
+			$currentSsbHide[0] = isset( $currentSsbHide ) ? $currentSsbHide[0] : false;
 
 			if ( $currentSsbHide[0] == 'true' ) {
 				$checked = true;

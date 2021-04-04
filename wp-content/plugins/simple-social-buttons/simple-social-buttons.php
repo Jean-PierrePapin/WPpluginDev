@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: https://simplesocialbuttons.com/
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Facebook, Twitter, WhatsApp, Viber, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 3.2.1
+ * Version: 3.2.2
  * Author: WPBrigade
  * Author URI: https://www.WPBrigade.com/
  * Text Domain: simple-social-buttons
@@ -44,7 +44,7 @@ class SimpleSocialButtonsPR {
 	 * @isnce
 	 * @var string
 	 */
-	public $pluginVersion = '3.2.1';
+	public $pluginVersion = '3.2.2';
 
 	/**
 	 * Plugin Prefix
